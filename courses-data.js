@@ -6,8 +6,20 @@ const BB = {
   userKey: 'bb_user',
   progressKey: 'bb_progress',
   streakKey: 'bb_streak',
-  videoUrl: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'
+  videoUrl: 'https://drive.google.com/file/d/1h2Tf5iyYvzvC_BIbvEvnadSlPLsPZ9Cm/view?usp=sharing'
 };
+
+/* Converts a Google Drive share link (or plain file ID) into a playable
+   /preview embed URL. Non-Drive links (direct mp4 etc.) pass through. */
+function bbVideoSrc(src) {
+  src = String(src || BB.videoUrl);
+  const m = src.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+  if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  if (/^[A-Za-z0-9_-]{25,}$/.test(src)) {
+    return `https://drive.google.com/file/d/${src}/preview`;
+  }
+  return src;
+}
 
 const COURSES = [
   {

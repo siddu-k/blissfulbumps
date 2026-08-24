@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `${course.level} · ${course.lessons.length} lessons`;
 
   /* ---------- Elements ---------- */
-  const video = document.getElementById('course-video');
+  const playerFrame = document.getElementById('course-video');
   const nowTitle = document.getElementById('now-title');
   const nowMeta = document.getElementById('now-meta');
   const markDoneBtn = document.getElementById('mark-done');
@@ -114,8 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lesson = course.lessons[idx];
     nowTitle.textContent = `${idx + 1}. ${lesson.name}`;
     nowMeta.textContent = `${lesson.dur} · ${isDone(idx) ? 'Completed' : 'Not completed yet'}`;
-    video.src = lesson.video || BB.videoUrl;
-    video.play().catch(() => {});
+    playerFrame.src = bbVideoSrc(lesson.video);
     refreshPlaylist();
     const activeRow = plList.querySelector('.pl-row.active');
     if (activeRow) activeRow.scrollIntoView({ block: 'nearest' });
@@ -145,12 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
       loadLesson(activeIdx + 1);
     } else {
       toast('This is the last lesson of the course 🌸');
-    }
-  });
-
-  video.addEventListener('ended', () => {
-    if (!isDone(activeIdx)) {
-      markDoneBtn.click();
     }
   });
 
