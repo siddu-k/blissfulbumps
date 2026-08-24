@@ -112,9 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadLesson = (idx) => {
     activeIdx = idx;
     const lesson = course.lessons[idx];
+    const rawSrc = String(lesson.video || BB.videoUrl);
     nowTitle.textContent = `${idx + 1}. ${lesson.name}`;
     nowMeta.textContent = `${lesson.dur} · ${isDone(idx) ? 'Completed' : 'Not completed yet'}`;
-    playerFrame.src = bbVideoSrc(lesson.video);
+    playerFrame.src = bbVideoSrc(rawSrc);
     refreshPlaylist();
     const activeRow = plList.querySelector('.pl-row.active');
     if (activeRow) activeRow.scrollIntoView({ block: 'nearest' });
