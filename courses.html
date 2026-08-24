@@ -34,44 +34,64 @@
       <p>Your calm, strong and ready journey continues. Pick up where you left off.</p>
     </div>
 
-    <div class="dash-grid">
-
-      <section class="courses-col">
-        <h2 class="col-title">Your Courses</h2>
-        <div id="courses-list"></div>
-      </section>
-
-      <aside class="side-col">
-
-        <div class="side-card streak-card">
-          <h3>🔥 Daily Streak</h3>
-          <div class="streak-big"><span id="streak-big">0</span><small>days</small></div>
-          <div class="week-dots" id="week-dots"></div>
-          <p class="side-note">Practice daily to grow your streak. Visit or finish a lesson to keep it alive.</p>
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-ico">🔥</span>
+        <div>
+          <div class="stat-num" id="stat-streak">0</div>
+          <div class="stat-lbl">Day streak</div>
         </div>
-
-        <div class="side-card">
-          <h3>💬 Feedback</h3>
-          <p class="side-note">How was your practice this week?</p>
-          <div class="stars" id="star-row" role="radiogroup" aria-label="Rating">
-            <button type="button" data-star="1" aria-label="1 star">★</button>
-            <button type="button" data-star="2" aria-label="2 stars">★</button>
-            <button type="button" data-star="3" aria-label="3 stars">★</button>
-            <button type="button" data-star="4" aria-label="4 stars">★</button>
-            <button type="button" data-star="5" aria-label="5 stars">★</button>
-          </div>
-          <textarea id="feedback-text" rows="3" placeholder="Share your experience..."></textarea>
-          <button class="side-btn" id="feedback-send">Send Feedback</button>
+      </div>
+      <div class="stat-card">
+        <span class="stat-ico">🧘</span>
+        <div>
+          <div class="stat-num" id="stat-lessons">0</div>
+          <div class="stat-lbl">Lessons completed</div>
         </div>
-
-        <div class="side-card">
-          <h3>🤝 Support</h3>
-          <p class="side-note">Questions about your practice? We reply within a few hours.</p>
-          <a class="side-btn whatsapp-btn" id="support-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp Us</a>
-          <a class="side-btn ghost-btn" href="mailto:hello@blissfulbumps.in">✉️ Email Support</a>
+      </div>
+      <div class="stat-card">
+        <span class="stat-ico">📚</span>
+        <div>
+          <div class="stat-num" id="stat-courses">0</div>
+          <div class="stat-lbl">Courses started</div>
         </div>
+      </div>
+    </div>
 
-      </aside>
+    <div class="sec-title"><h2>Your Courses</h2></div>
+    <div class="courses-grid" id="courses-list"></div>
+
+    <div class="sec-title"><h2>Practice Tools</h2></div>
+    <div class="tools-grid">
+
+      <div class="side-card">
+        <h3>🔥 Daily Streak</h3>
+        <div class="streak-big"><span id="streak-big">0</span><small>days</small></div>
+        <div class="week-dots" id="week-dots"></div>
+        <p class="side-note">Practice daily to grow your streak. Visit or finish a lesson to keep it alive.</p>
+      </div>
+
+      <div class="side-card">
+        <h3>💬 Feedback</h3>
+        <p class="side-note">How was your practice this week?</p>
+        <div class="stars" id="star-row" role="radiogroup" aria-label="Rating">
+          <button type="button" data-star="1" aria-label="1 star">★</button>
+          <button type="button" data-star="2" aria-label="2 stars">★</button>
+          <button type="button" data-star="3" aria-label="3 stars">★</button>
+          <button type="button" data-star="4" aria-label="4 stars">★</button>
+          <button type="button" data-star="5" aria-label="5 stars">★</button>
+        </div>
+        <textarea id="feedback-text" rows="3" placeholder="Share your experience..."></textarea>
+        <button class="side-btn" id="feedback-send">Send Feedback</button>
+      </div>
+
+      <div class="side-card">
+        <h3>🤝 Support</h3>
+        <p class="side-note">Questions about your practice? We reply within a few hours.</p>
+        <a class="side-btn whatsapp-btn" id="support-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+        <a class="side-btn ghost-btn" href="mailto:hello@blissfulbumps.in">✉️ Email Support</a>
+      </div>
+
     </div>
   </main>
 
