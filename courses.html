@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Courses | Blissful Bumps Prenatal Yoga</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="member.css">
+</head>
+<body class="app-body">
+
+  <header class="app-header">
+    <a href="courses.html" class="logo">
+      <span class="logo-icon">🌸</span>
+      <span class="logo-text">
+        Blissful Bumps
+        <small>Prenatal Yoga</small>
+      </span>
+    </a>
+    <div class="header-right">
+      <div class="chip streak-chip" id="streak-chip" title="Your daily streak">
+        🔥 <strong id="streak-count">0</strong> day streak
+      </div>
+      <div class="chip user-chip" id="user-chip">🧘 <span id="user-name">Mom</span></div>
+      <button class="logout-btn" id="logout-btn">Log out</button>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <div class="welcome">
+      <h1>Namaste, <span id="welcome-name">Mom</span> 🌸</h1>
+      <p>Your calm, strong and ready journey continues. Pick up where you left off.</p>
+    </div>
+
+    <div class="dash-grid">
+
+      <section class="courses-col">
+        <h2 class="col-title">Your Courses</h2>
+        <div id="courses-list"></div>
+      </section>
+
+      <aside class="side-col">
+
+        <div class="side-card streak-card">
+          <h3>🔥 Daily Streak</h3>
+          <div class="streak-big"><span id="streak-big">0</span><small>days</small></div>
+          <div class="week-dots" id="week-dots"></div>
+          <p class="side-note">Practice daily to grow your streak. Visit or finish a lesson to keep it alive.</p>
+        </div>
+
+        <div class="side-card">
+          <h3>💬 Feedback</h3>
+          <p class="side-note">How was your practice this week?</p>
+          <div class="stars" id="star-row" role="radiogroup" aria-label="Rating">
+            <button type="button" data-star="1" aria-label="1 star">★</button>
+            <button type="button" data-star="2" aria-label="2 stars">★</button>
+            <button type="button" data-star="3" aria-label="3 stars">★</button>
+            <button type="button" data-star="4" aria-label="4 stars">★</button>
+            <button type="button" data-star="5" aria-label="5 stars">★</button>
+          </div>
+          <textarea id="feedback-text" rows="3" placeholder="Share your experience..."></textarea>
+          <button class="side-btn" id="feedback-send">Send Feedback</button>
+        </div>
+
+        <div class="side-card">
+          <h3>🤝 Support</h3>
+          <p class="side-note">Questions about your practice? We reply within a few hours.</p>
+          <a class="side-btn whatsapp-btn" id="support-wa" href="#" target="_blank" rel="noopener">💬 WhatsApp Us</a>
+          <a class="side-btn ghost-btn" href="mailto:hello@blissfulbumps.in">✉️ Email Support</a>
+        </div>
+
+      </aside>
+    </div>
+  </main>
+
+  <div class="player-overlay" id="player-overlay">
+    <div class="player-box">
+      <button class="player-close" id="player-close" aria-label="Close player">✕</button>
+      <h3 id="player-title">Lesson</h3>
+      <div class="player-frame">
+        <video id="player-video" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="player-actions">
+        <button class="side-btn" id="mark-done">✓ Mark as Complete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="member.js"></script>
+</body>
+</html>
