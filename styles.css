@@ -1233,7 +1233,9 @@ main {
 footer {
   background-color: #242A27; /* Deep peaceful forest dark */
   color: var(--bg-primary);
-  padding: 6rem 2rem 2rem 2rem;
+  /* Big top space so the resting flower (bottom half = 275px on desktop)
+     never overlaps the footer content */
+  padding: 20rem 2rem 2rem 2rem;
 }
 
 .footer-grid {
