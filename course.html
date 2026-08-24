@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course | Blissful Bumps Prenatal Yoga</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="member.css">
+</head>
+<body class="app-body">
+
+  <header class="app-header">
+    <a href="courses.html" class="logo">
+      <span class="logo-icon">🌸</span>
+      <span class="logo-text">
+        Blissful Bumps
+        <small>Prenatal Yoga</small>
+      </span>
+    </a>
+    <div class="header-right">
+      <div class="chip streak-chip">🔥 <strong id="streak-count">0</strong> day streak</div>
+      <div class="chip user-chip">🧘 <span id="user-name">Mom</span></div>
+      <button class="logout-btn" id="logout-btn">Log out</button>
+    </div>
+  </header>
+
+  <main class="dash-main">
+    <a href="courses.html" class="back-link">← All Courses</a>
+
+    <div class="course-head">
+      <h1 id="course-title">Course</h1>
+      <p id="course-meta"></p>
+    </div>
+
+    <div class="course-layout">
+
+      <section class="player-panel">
+        <div class="player-frame">
+          <video id="course-video" controls playsinline preload="metadata"></video>
+        </div>
+        <h2 class="now-title" id="now-title">Lesson</h2>
+        <p class="now-meta" id="now-meta"></p>
+        <div class="player-actions">
+          <button class="side-btn" id="mark-done">✓ Mark as Complete</button>
+          <button class="side-btn ghost-btn" id="next-lesson">Next Lesson →</button>
+        </div>
+      </section>
+
+      <aside class="playlist">
+        <div class="pl-head">
+          <h3>Playlist</h3>
+          <div class="progress-track"><div class="progress-fill" id="pl-progress"></div></div>
+          <span class="progress-label" id="pl-label">0% complete</span>
+        </div>
+        <div class="pl-list" id="pl-list"></div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script src="courses-data.js"></script>
+  <script src="course.js"></script>
+</body>
+</html>
