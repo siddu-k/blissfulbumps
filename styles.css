@@ -1623,6 +1623,18 @@ footer {
   font-size: 0.95rem;
 }
 
+.footer-contact a {
+  color: var(--primary-sage);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.footer-contact a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
 .footer-links h3 {
   font-family: var(--font-sans);
   font-size: 1.1rem;
@@ -1695,15 +1707,17 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(42, 51, 46, 0.4);
+  background-color: rgba(42, 51, 46, 0.45);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
 }
 
 .modal-overlay.open {
@@ -1715,12 +1729,24 @@ footer {
   background-color: var(--bg-primary);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
-  width: 90%;
-  max-width: 580px;
-  padding: 3rem;
+  width: 100%;
+  max-width: 460px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 2.25rem 2rem;
   position: relative;
-  transform: scale(0.9);
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: scale(0.92);
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  box-sizing: border-box;
+}
+
+/* Subtle scrollbar for long form screens */
+.modal-container::-webkit-scrollbar {
+  width: 5px;
+}
+.modal-container::-webkit-scrollbar-thumb {
+  background: var(--primary-sage);
+  border-radius: 10px;
 }
 
 .modal-overlay.open .modal-container {
@@ -1729,8 +1755,8 @@ footer {
 
 .modal-close {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
+  top: 1.25rem;
+  right: 1.25rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -1755,33 +1781,34 @@ footer {
 }
 
 .modal-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
   text-align: center;
 }
 
 .modal-header h2 {
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  margin-bottom: 0.35rem;
 }
 
 .modal-header p {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
+  color: var(--text-medium);
 }
 
 .booking-form {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 0.85rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .form-group label {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -1790,12 +1817,12 @@ footer {
 
 .form-group input,
 .form-group select {
-  padding: 0.9rem 1.25rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--border-radius-sm);
   border: 1px solid var(--bg-tertiary);
   background-color: var(--white);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-dark);
   outline: none;
   transition: var(--transition-fast);
@@ -1807,8 +1834,10 @@ footer {
   box-shadow: 0 0 0 3px rgba(143, 168, 155, 0.15);
 }
 
-.booking-form button {
-  margin-top: 1rem;
+.booking-form button[type="submit"] {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.92rem;
+  margin-top: 0.25rem;
 }
 
 /* --- Scroll Animation Reveals --- */
@@ -1882,6 +1911,16 @@ footer {
     padding-top: 7rem;
     min-height: auto;
     padding-bottom: 3rem;
+  }
+
+  /* Reduced floating flower flow on mobile header */
+  .hero-flowers .petal:nth-child(n+5) {
+    display: none;
+  }
+
+  .hero-flowers .petal {
+    opacity: 0.35;
+    font-size: 14px !important;
   }
 
   .hero-grid {
@@ -2215,24 +2254,54 @@ footer {
   }
 
   .modal-overlay {
-    padding: 1rem;
+    padding: 0.75rem;
     align-items: flex-end;
   }
 
   .modal-container {
-    padding: 1.75rem 1.5rem;
+    padding: 1.5rem 1.25rem 1.5rem;
     border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
     max-width: 100%;
     width: 100%;
+    max-height: 85vh;
+  }
+
+  .modal-header {
+    margin-bottom: 0.85rem;
   }
 
   .modal-header h2 {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
+    margin-bottom: 0.2rem;
   }
 
-  .booking-form .btn {
-    padding: 0.9rem 1.5rem;
-    font-size: 0.9rem;
+  .modal-header p {
+    font-size: 0.82rem;
+  }
+
+  .booking-form {
+    gap: 0.65rem;
+  }
+
+  .form-group label {
+    font-size: 0.74rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.6rem 0.85rem;
+    font-size: 0.88rem;
+  }
+
+  .booking-form button[type="submit"],
+  .btn-whatsapp-modal {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.88rem;
+  }
+
+  .modal-close {
+    top: 0.85rem;
+    right: 0.85rem;
   }
 
   footer {

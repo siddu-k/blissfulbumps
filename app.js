@@ -378,13 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
     flowerLayer.setAttribute('aria-hidden', 'true');
     heroSection.appendChild(flowerLayer);
 
-    const totalFlowers = 16;
+    const totalFlowers = window.innerWidth <= 768 ? 4 : 16;
     for (let i = 0; i < totalFlowers; i++) {
       const flower = document.createElement('span');
       flower.className = 'petal';
       flower.textContent = '🌸';
       flower.style.left = Math.random() * 100 + '%';
-      flower.style.fontSize = `${Math.round(13 + Math.random() * 19)}px`;
+      flower.style.fontSize = `${Math.round(12 + Math.random() * 14)}px`;
       const duration = 11 + Math.random() * 9;
       flower.style.animationDuration = `${duration}s`;
       flower.style.animationDelay = `${-(Math.random() * duration)}s`;
