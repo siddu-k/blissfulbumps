@@ -1080,6 +1080,15 @@ main {
   position: relative;
 }
 
+.about-lead-intro {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-dark);
+  margin-bottom: 1.25rem !important;
+  font-weight: 400;
+}
+
 .about-quote {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
