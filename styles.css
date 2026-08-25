@@ -275,6 +275,80 @@ img {
   box-shadow: 0 8px 25px rgba(211, 162, 151, 0.4);
 }
 
+/* WhatsApp Direct CTA Buttons */
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+  background-color: #20BA5A;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.38);
+}
+
+.about-ctas {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.modal-wa-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0.25rem 0;
+  color: var(--text-light);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.modal-wa-divider::before,
+.modal-wa-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(143, 168, 155, 0.25);
+}
+
+.modal-wa-divider span {
+  padding: 0 0.75rem;
+}
+
+.btn-whatsapp-modal {
+  width: 100%;
+  background-color: #25D366;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--border-radius-full);
+  padding: 0.9rem 1.8rem;
+  font-size: 0.95rem;
+  transition: var(--transition-fast);
+}
+
+.btn-whatsapp-modal:hover {
+  background-color: #20BA5A;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+}
+
 /* Section Layouts */
 section {
   padding: 4.5rem 2rem;
@@ -598,17 +672,111 @@ header:not(.scrolled) .nav-pill {
   box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 2;
+  background-color: var(--bg-tertiary);
 }
 
-.image-wrapper img {
+.hero-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 8s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 6s ease-out, visibility 1s ease;
+  pointer-events: none;
 }
 
-.hero-visual:hover img {
-  transform: scale(1.05);
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Slider Dots Indicator */
+.hero-slider-dots {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 5;
+  background: rgba(42, 51, 46, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.35rem 0.75rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.hero-slider-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+.hero-slider-dots .dot.active {
+  width: 22px;
+  border-radius: 100px;
+  background: var(--white);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Slide Navigation Arrows */
+.hero-slide-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(251, 249, 246, 0.8);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 5;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(42, 51, 46, 0.15);
+}
+
+.hero-slider:hover .hero-slide-nav {
+  opacity: 1;
+}
+
+.hero-slide-nav.prev {
+  left: 0.9rem;
+}
+
+.hero-slide-nav.next {
+  right: 0.9rem;
+}
+
+.hero-slide-nav:hover {
+  background: var(--white);
+  color: var(--accent-terracotta);
+  transform: translateY(-50%) scale(1.08);
 }
 
 /* Decorative blobs */
@@ -1745,6 +1913,10 @@ footer {
     order: -1;
   }
 
+  .about-ctas {
+    justify-content: center;
+  }
+
   .class-panel {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1925,6 +2097,17 @@ footer {
   .image-wrapper {
     aspect-ratio: 4/3;
     border-radius: var(--border-radius-md);
+  }
+
+  .hero-slide-nav {
+    opacity: 0.85;
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+
+  .hero-slider-dots {
+    bottom: 0.75rem;
   }
 
   .pillars-grid {

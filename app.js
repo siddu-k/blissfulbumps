@@ -79,6 +79,103 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- 2.5 HERO IMAGE SLIDER ---
+  const heroSlider = document.getElementById('hero-slider');
+  if (heroSlider) {
+    const slides = heroSlider.querySelectorAll('.hero-slide');
+    const dots = heroSlider.querySelectorAll('.hero-slider-dots .dot');
+    const prevBtn = document.getElementById('hero-prev-btn');
+    const nextBtn = document.getElementById('hero-next-btn');
+    let currentSlide = 0;
+    let slideInterval = null;
+
+    const showSlide = (index) => {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+    };
+
+    const nextSlide = () => {
+      const nextIndex = (currentSlide + 1) % slides.length;
+      showSlide(nextIndex);
+    };
+
+    const prevSlide = () => {
+      const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(prevIndex);
+    };
+
+    const startAutoPlay = () => {
+      stopAutoPlay();
+      slideInterval = setInterval(nextSlide, 4500);
+    };
+
+    const stopAutoPlay = () => {
+      if (slideInterval) {
+        clearInterval(slideInterval);
+        slideInterval = null;
+      }
+    };
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        nextSlide();
+        startAutoPlay();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        prevSlide();
+        startAutoPlay();
+      });
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        const index = parseInt(dot.getAttribute('data-index'), 10);
+        if (!isNaN(index) && index !== currentSlide) {
+          showSlide(index);
+          startAutoPlay();
+        }
+      });
+    });
+
+    // Pause on hover
+    heroSlider.addEventListener('mouseenter', stopAutoPlay);
+    heroSlider.addEventListener('mouseleave', startAutoPlay);
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    heroSlider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoPlay();
+    }, { passive: true });
+
+    heroSlider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchEndX - touchStartX;
+      if (Math.abs(diff) > 40) {
+        if (diff < 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+      startAutoPlay();
+    }, { passive: true });
+
+    startAutoPlay();
+  }
+
   // --- 3. SCROLL REVEAL ANIMATIONS (INTERSECTION OBSERVER) ---
   const reveals = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries, observer) => {
