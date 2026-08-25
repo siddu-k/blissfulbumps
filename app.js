@@ -335,18 +335,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const restSize = window.innerWidth <= 768 ? 300 : 550;
       const halfW = restSize / 2;
       trackStartY = heroH + 50;
-      trackEndY = h;
+
+      // Use the flower's CSS-pinned position as the stable track endpoint.
+      // Walk offsetParent chain to get the flower's absolute position inside mainEl —
+      // this is scroll-independent, unlike getBoundingClientRect().
+      let flowerOffsetX = 0;
+      let flowerOffsetY = 0;
+      let node = restFlower;
+      while (node && node !== mainEl) {
+        flowerOffsetX += node.offsetLeft;
+        flowerOffsetY += node.offsetTop;
+        node = node.offsetParent;
+      }
+      const flowerW = restFlower.offsetWidth;
+      const flowerH = restFlower.offsetHeight;
+      // Land at the horizontal centre of the flower, vertically ~35% down from top
+      const landX = flowerOffsetX + flowerW / 2;
+      trackEndY = flowerOffsetY + flowerH * 0.35;
+
       const startY = trackStartY;
       const endY = trackEndY;
-      const segs = Math.max(4, Math.round((endY - startY) / 420));
+      const segs = Math.max(4, Math.round(Math.abs(endY - startY) / 420));
       const stepY = (endY - startY) / segs;
-
-      const preferredX = w <= 480 ? w * 0.55 : w * 0.8;
-      const minX = halfW + 12;
-      const maxX = w - halfW - 12;
-      const landX = minX <= maxX
-        ? Math.min(Math.max(preferredX, minX), maxX)
-        : w / 2;
 
       let d = `M ${w * 0.12} ${startY}`;
       let prevX = w * 0.12;
@@ -359,10 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
       trackPath.setAttribute('d', d);
       pathLength = trackPath.getTotalLength();
 
-      // Park the resting flower at the very end of the track
-      const endPt = trackPath.getPointAtLength(pathLength);
-      restFlower.style.left = endPt.x + 'px';
-      restFlower.style.top = endPt.y + 'px';
+      // The rest-flower is pinned via CSS (bottom / right) so its position
+      // is stable across every page load.  We only read its centre here so
+      // the track path can land exactly on it.
 
       // Place the branch at the screen's left edge, level with the start
       const startPt = trackPath.getPointAtLength(0);
@@ -424,14 +433,34 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    buildTrack();
-    updateRiders();
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
+    const rebuild = () => {
       buildTrack();
       updateRiders();
-    });
+    };
+
+    rebuild();
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', rebuild);
+
+    // Rebuild once every image/font has loaded — page height changes while
+    // loading, which used to leave the flower at a random position.
+    window.addEventListener('load', rebuild);
+
+    // Rebuild whenever the page height changes afterwards
+    // (images loading late, FAQ accordion opening, etc.)
+    if (window.ResizeObserver) {
+      let pending = false;
+      const ro = new ResizeObserver(() => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          rebuild();
+          pending = false;
+        });
+      });
+      ro.observe(mainEl);
+    }
   }
 
 });

@@ -558,12 +558,17 @@ main {
   will-change: transform;
 }
 
-/* Flower at the end of the track where the butterfly rests */
+/* Flower at the end of the track where the butterfly rests.
+   Pinned with bottom/right so its position is STABLE on every page load —
+   the JS only reads its rendered coords to make the track path end here. */
 .rest-flower {
   position: absolute;
   width: 550px;
   height: auto;
-  transform: translate(-50%, -50%);
+  /* Pushed further down into the footer so it doesn't overlap FAQ */
+  bottom: -160px;
+  right: 6%;
+  transform: none;
   pointer-events: none;
   user-select: none;
   filter: drop-shadow(0 6px 14px rgba(42, 51, 46, 0.15));
@@ -587,6 +592,9 @@ main {
 
   .rest-flower {
     width: 300px;
+    /* Move flower well below FAQ content on mobile */
+    bottom: -120px;
+    right: 4%;
   }
 
   .start-branch {
@@ -1827,7 +1835,8 @@ footer {
   }
 
   .faq {
-    padding-bottom: 11rem;
+    /* Extra padding so the flower (sitting lower) never covers FAQ items */
+    padding-bottom: 18rem;
   }
 
   .footer-socials {
