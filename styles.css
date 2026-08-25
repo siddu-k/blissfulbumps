@@ -167,6 +167,9 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 body {
@@ -174,6 +177,8 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-dark);
   line-height: 1.6;
+  width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
 }
 
@@ -603,6 +608,8 @@ header:not(.scrolled) .nav-pill {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  position: relative;
   /* --- Previous Original Background (Uncomment to revert) ---
      background: radial-gradient(circle at 80% 20%, var(--bg-secondary) 0%, var(--bg-primary) 70%); 
   --- */
@@ -822,14 +829,19 @@ header:not(.scrolled) .nav-pill {
 /* --- Roller Coaster Flower Track --- */
 main {
   position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .flower-track {
   position: absolute;
   inset: 0;
-  overflow: visible;
+  overflow: hidden;
   pointer-events: none;
   z-index: 50;
+  width: 100%;
+  max-width: 100vw;
 }
 
 .flower-track svg {
