@@ -5,7 +5,26 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   
-  // --- 1. FLOATING STICKY HEADER ---
+  // --- 0. PAGE LOADER SPLASH SCREEN ---
+  const pageLoader = document.getElementById('page-loader');
+  if (pageLoader) {
+    const hideLoader = () => {
+      if (!pageLoader.classList.contains('loader-hidden')) {
+        pageLoader.classList.add('loader-hidden');
+        setTimeout(() => {
+          pageLoader.style.display = 'none';
+        }, 800);
+      }
+    };
+
+    // Wait until full window load + subtle delay for smooth reveal
+    window.addEventListener('load', () => {
+      setTimeout(hideLoader, 600);
+    });
+
+    // Fallback in case load takes longer or is cached
+    setTimeout(hideLoader, 2500);
+  }
   const header = document.getElementById('main-header');
   const handleScroll = () => {
     if (window.scrollY > 50) {

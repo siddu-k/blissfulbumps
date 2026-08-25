@@ -6,30 +6,139 @@
 /* --- Google Fonts Import --- */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
+/* =====================================================
+   PAGE LOADER / SPLASH SCREEN
+   ===================================================== */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FBF9F6;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+#page-loader.loader-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Dedicated wrapper for logo + orbital circles */
+.loader-logo-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.25rem;
+}
+
+/* Orbiting SVG dots rotating around the exact center */
+.loader-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  animation: loaderSpin 2.6s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes loaderSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Logo emoji — gentle pulse perfectly centered */
+.loader-logo {
+  position: relative;
+  z-index: 1;
+  font-size: 3.5rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  animation: loaderPulse 1.8s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes loaderPulse {
+  0%, 100% { transform: scale(1);    opacity: 1;    }
+  50%       { transform: scale(1.1);  opacity: 0.88; }
+}
+
+/* Brand name */
+.loader-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: #2A332E;
+  letter-spacing: 0.04em;
+  margin: 0.5rem 0 0;
+  animation: loaderFadeUp 0.9s ease both;
+}
+
+/* Tagline */
+.loader-tagline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8FA89B;
+  margin: 0;
+  animation: loaderFadeUp 0.9s 0.15s ease both;
+}
+
+@keyframes loaderFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
 /* --- Custom Variables & Tokens --- */
 :root {
   /* Color Palette */
-  --bg-primary: #FBF9F6;       /* Serene warm off-white */
-  --bg-secondary: #F4EFEB;     /* Calm blush sand */
-  --bg-tertiary: #EAE3DC;      /* Deep blush sand */
-  
-  --primary-sage: #8FA89B;     /* Core Brand Sage Green */
+  --bg-primary: #FBF9F6;
+  /* Serene warm off-white */
+  --bg-secondary: #F4EFEB;
+  /* Calm blush sand */
+  --bg-tertiary: #EAE3DC;
+  /* Deep blush sand */
+
+  --primary-sage: #8FA89B;
+  /* Core Brand Sage Green */
   --primary-sage-hover: #7E978A;
-  --primary-sage-light: #F0F4F1; /* Gentle sage highlight */
-  
-  --accent-terracotta: #D3A297; /* Warm Terracotta Rose */
+  --primary-sage-light: #F0F4F1;
+  /* Gentle sage highlight */
+
+  --accent-terracotta: #D3A297;
+  /* Warm Terracotta Rose */
   --accent-terracotta-hover: #C59186;
-  --accent-terracotta-light: #FAF2F0; /* Soft terracotta highlight */
-  
-  --text-dark: #2A332E;        /* Forest slate (highly readable, soft contrast) */
-  --text-medium: #54625A;      /* Medium slate gray */
-  --text-light: #7E8E85;       /* Subdued detail text */
+  --accent-terracotta-light: #FAF2F0;
+  /* Soft terracotta highlight */
+
+  --text-dark: #2A332E;
+  /* Forest slate (highly readable, soft contrast) */
+  --text-medium: #54625A;
+  /* Medium slate gray */
+  --text-light: #7E8E85;
+  /* Subdued detail text */
   --white: #FFFFFF;
-  
+
   /* Fonts */
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  
+
   /* Layout Tokens */
   --border-radius-sm: 8px;
   --border-radius-md: 16px;
@@ -40,12 +149,14 @@
   --shadow-lg: 0 20px 50px rgba(42, 51, 46, 0.1);
   --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   --transition-fast: all 0.25s ease;
-  
+
   --max-width: 1280px;
 }
 
 /* --- Reset & Base --- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -67,7 +178,10 @@ body {
 }
 
 /* --- Typography --- */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-serif);
   font-weight: 500;
   line-height: 1.15;
@@ -75,7 +189,8 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem); /* Dynamic scale */
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  /* Dynamic scale */
 }
 
 h2 {
@@ -224,14 +339,14 @@ header.scrolled {
   -webkit-backdrop-filter: blur(20px);
   border-radius: 100px;
   padding: 0.6rem 0.75rem 0.6rem 1.5rem;
-  box-shadow: 0 4px 28px rgba(42, 51, 46, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow: 0 4px 28px rgba(42, 51, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(143, 168, 155, 0.18);
   transition: var(--transition-smooth);
 }
 
 header:not(.scrolled) .nav-pill {
   background: rgba(251, 249, 246, 0.45);
-  box-shadow: 0 2px 16px rgba(42, 51, 46, 0.04), inset 0 1px 0 rgba(255,255,255,0.4);
+  box-shadow: 0 2px 16px rgba(42, 51, 46, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 /* Keep old nav-container for fallback structure compatibility */
@@ -307,7 +422,9 @@ header:not(.scrolled) .nav-pill {
 }
 
 /* Hide old underline on links inside pill */
-.nav-links a::after { display: none; }
+.nav-links a::after {
+  display: none;
+}
 
 /* Hide mobile-only CTA link on desktop (button in nav-cta already exists) */
 .nav-links .mobile-only-cta {
@@ -380,17 +497,27 @@ header:not(.scrolled) .nav-pill {
   transition: var(--transition-fast);
 }
 
-.mobile-nav-toggle span:nth-child(1) { top: 13px; }
-.mobile-nav-toggle span:nth-child(2) { top: 21px; }
-.mobile-nav-toggle span:nth-child(3) { top: 29px; }
+.mobile-nav-toggle span:nth-child(1) {
+  top: 13px;
+}
+
+.mobile-nav-toggle span:nth-child(2) {
+  top: 21px;
+}
+
+.mobile-nav-toggle span:nth-child(3) {
+  top: 29px;
+}
 
 .mobile-nav-toggle.open span:nth-child(1) {
   transform: rotate(45deg);
   top: 21px;
 }
+
 .mobile-nav-toggle.open span:nth-child(2) {
   opacity: 0;
 }
+
 .mobile-nav-toggle.open span:nth-child(3) {
   transform: rotate(-45deg);
   top: 21px;
@@ -558,15 +685,13 @@ main {
   will-change: transform;
 }
 
-/* Flower at the end of the track where the butterfly rests.
-   Pinned with bottom/right so its position is STABLE on every page load —
-   the JS only reads its rendered coords to make the track path end here. */
+/* Flower at the end of the track where the butterfly rests */
 .rest-flower {
   position: absolute;
   width: 550px;
   height: auto;
-  /* Pushed further down into the footer so it doesn't overlap FAQ */
-  bottom: -160px;
+  /* Anchor to bottom-right — pushed down so it clears the FAQ section */
+  bottom: -120px;
   right: 6%;
   transform: none;
   pointer-events: none;
@@ -592,8 +717,7 @@ main {
 
   .rest-flower {
     width: 300px;
-    /* Move flower well below FAQ content on mobile */
-    bottom: -120px;
+    bottom: -90px;
     right: 4%;
   }
 
@@ -625,10 +749,23 @@ main {
 }
 
 @keyframes petalFall {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-  8%   { opacity: 0.4; }
-  85%  { opacity: 0.3; }
-  100% { transform: translateY(110vh) rotate(340deg); opacity: 0; }
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.4;
+  }
+
+  85% {
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(340deg);
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -912,22 +1049,37 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 500px;
+  width: 100%;
+  height: auto;
 }
 
 .silhouette-container {
   width: 100%;
-  height: 100%;
+  max-width: 520px;
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   position: relative;
+  background-color: #fcfaf8;
+  border: 2px solid #fcfaf8;
+  box-shadow: 0 16px 40px rgba(42, 51, 46, 0.08), 0 2px 10px rgba(143, 168, 155, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.silhouette-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 50px rgba(42, 51, 46, 0.12), 0 4px 14px rgba(143, 168, 155, 0.2);
 }
 
 .silhouette-container img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: var(--border-radius-lg);
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  display: block;
+  border-radius: calc(var(--border-radius-lg) - 2px);
 }
 
 .map-hotspot {
@@ -971,11 +1123,35 @@ main {
 }
 
 /* Position Hotspots */
-.hotspot-mind { top: 15%; left: 50%; transform: translateX(-50%); }
-.hotspot-breath { top: 32%; left: 52%; transform: translateX(-50%); }
-.hotspot-back { top: 48%; left: 45%; transform: translateX(-50%); }
-.hotspot-pelvic { top: 62%; left: 51%; transform: translateX(-50%); }
-.hotspot-legs { top: 80%; left: 48%; transform: translateX(-50%); }
+.hotspot-mind {
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hotspot-breath {
+  top: 32%;
+  left: 52%;
+  transform: translateX(-50%);
+}
+
+.hotspot-back {
+  top: 48%;
+  left: 45%;
+  transform: translateX(-50%);
+}
+
+.hotspot-pelvic {
+  top: 62%;
+  left: 51%;
+  transform: translateX(-50%);
+}
+
+.hotspot-legs {
+  top: 80%;
+  left: 48%;
+  transform: translateX(-50%);
+}
 
 .guide-details {
   background-color: var(--white);
@@ -1160,9 +1336,8 @@ main {
 /* --- FAQ Accordion --- */
 .faq {
   background-color: var(--bg-primary);
-  /* Bottom space so the resting flower's top half
-     never covers the last FAQ items */
-  padding-bottom: 19rem;
+  /* Extra bottom space so the resting flower never covers FAQ items */
+  padding-bottom: 16rem;
 }
 
 .faq-container {
@@ -1239,7 +1414,8 @@ main {
 
 /* --- Footer --- */
 footer {
-  background-color: #242A27; /* Deep peaceful forest dark */
+  background-color: #242A27;
+  /* Deep peaceful forest dark */
   color: var(--bg-primary);
   /* Big top space so the resting flower (bottom half = 275px on desktop)
      never overlaps the footer content */
@@ -1475,20 +1651,43 @@ footer {
 
 /* --- Animations & Float Keyframes --- */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(211, 162, 151, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(211, 162, 151, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(211, 162, 151, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(211, 162, 151, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(211, 162, 151, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(211, 162, 151, 0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Responsive Adaptations --- */
@@ -1497,9 +1696,14 @@ footer {
     padding: 4rem 1.5rem;
   }
 
-  h1 { font-size: clamp(2rem, 6vw, 3.2rem); }
-  h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); }
-  
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+  }
+
   .hero {
     padding-top: 7rem;
     min-height: auto;
@@ -1511,12 +1715,12 @@ footer {
     gap: 2.5rem;
     text-align: center;
   }
-  
+
   .hero-content {
     margin: 0 auto;
     max-width: 100%;
   }
-  
+
   .hero-ctas {
     justify-content: center;
     flex-wrap: wrap;
@@ -1526,17 +1730,17 @@ footer {
   .hero-content p {
     font-size: 1.05rem;
   }
-  
+
   .pillars-grid {
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
   }
-  
+
   .about-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
+
   .about-content {
     order: -1;
   }
@@ -1545,21 +1749,27 @@ footer {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .class-panel-visual {
     order: -1;
     aspect-ratio: 16/9;
   }
-  
+
   .guide-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
 
   .interactive-body-map {
-    height: 320px;
+    height: auto;
+    width: 100%;
   }
-  
+
+  .silhouette-container {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
@@ -1663,12 +1873,12 @@ footer {
   .nav-overlay.open {
     display: block;
   }
-  
+
   /* Hide desktop CTA pill button on mobile */
   .nav-cta {
     display: none;
   }
-  
+
   .mobile-nav-toggle {
     display: flex;
   }
@@ -1677,8 +1887,13 @@ footer {
     padding: 3rem 1.1rem;
   }
 
-  h1 { font-size: clamp(1.85rem, 7vw, 2.5rem); }
-  h2 { font-size: clamp(1.6rem, 5vw, 2.1rem); }
+  h1 {
+    font-size: clamp(1.85rem, 7vw, 2.5rem);
+  }
+
+  h2 {
+    font-size: clamp(1.6rem, 5vw, 2.1rem);
+  }
 
   .hero {
     padding-top: 6rem;
@@ -1753,20 +1968,23 @@ footer {
   }
 
   .interactive-body-map {
-    height: 320px;
+    height: auto;
+    width: 100%;
   }
 
-  /* Show full guide image on mobile (no cropping) */
+  /* Show full guide image on mobile (no cropping, smooth curves) */
   .silhouette-container {
-    background-color: var(--bg-secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-width: 100%;
+    background-color: #fcfaf8;
+    border: 2px solid #fcfaf8;
+    border-radius: var(--border-radius-md);
+    margin: 0 auto;
   }
 
   .silhouette-container img {
+    max-height: 380px;
     object-fit: contain;
-    border-radius: var(--border-radius-md);
+    border-radius: calc(var(--border-radius-md) - 2px);
   }
 
   .guide-details {
@@ -1795,7 +2013,7 @@ footer {
     padding: 0 1.25rem 1.25rem 1.25rem;
     font-size: 0.95rem;
   }
-  
+
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -1806,7 +2024,7 @@ footer {
     text-align: center;
     gap: 1rem;
   }
-  
+
   .modal-overlay {
     padding: 1rem;
     align-items: flex-end;
@@ -1818,7 +2036,7 @@ footer {
     max-width: 100%;
     width: 100%;
   }
-  
+
   .modal-header h2 {
     font-size: 1.6rem;
   }
@@ -1835,8 +2053,8 @@ footer {
   }
 
   .faq {
-    /* Extra padding so the flower (sitting lower) never covers FAQ items */
-    padding-bottom: 18rem;
+    /* Extra padding on mobile so flower doesn't cover FAQ items */
+    padding-bottom: 16rem;
   }
 
   .footer-socials {
