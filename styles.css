@@ -604,7 +604,8 @@ header:not(.scrolled) .nav-pill {
 
 /* --- Hero Section --- */
 .hero {
-  padding-top: 8rem;
+  padding-top: 11.5rem;
+  padding-bottom: 5rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -2059,31 +2060,19 @@ footer {
     color: var(--text-dark);
   }
 
-  /* Mobile CTA button at the bottom */
-  .nav-links li:last-child a {
+  /* Mobile CTA buttons inside drawer */
+  .nav-links li.mobile-only-cta {
+    margin-top: 0.5rem;
+  }
+
+  .nav-links li.mobile-only-cta a {
     display: inline-flex;
-    padding: 0.85rem 2rem;
-    background-color: var(--primary-sage);
-    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.75rem;
     border-radius: var(--border-radius-full);
-  }
-
-  /* Login link inside the mobile drawer */
-  .nav-links li.mobile-login {
-    border-bottom: none;
-    margin-top: 1.5rem;
-  }
-
-  .nav-links li.mobile-login a {
-    display: inline-flex;
-    padding: 0.85rem 2rem;
-    border: 1px solid var(--primary-sage);
-    color: var(--primary-sage);
-    border-radius: var(--border-radius-full);
-  }
-
-  .nav-links li.mobile-only-cta:last-child {
-    margin-top: 0.8rem;
+    width: 100%;
+    font-size: 0.95rem;
   }
 
   .nav-links.open {
@@ -2125,8 +2114,8 @@ footer {
   }
 
   .hero {
-    padding-top: 6rem;
-    padding-bottom: 2.5rem;
+    padding-top: 8.5rem;
+    padding-bottom: 3.5rem;
   }
 
   .hero-badge {

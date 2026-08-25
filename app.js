@@ -271,14 +271,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const openTriggers = document.querySelectorAll('.open-modal-trigger');
   const bookingForm = document.getElementById('actual-booking-form');
 
-  // Open modal triggers
-  openTriggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
+  // Open modal triggers via global event delegation
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('.open-modal-trigger');
+    if (trigger) {
       e.preventDefault();
-
       modal.classList.add('open');
-      document.body.style.overflow = 'hidden'; // Lock background scroll
-    });
+      document.body.style.overflow = 'hidden';
+      if (typeof closeMobileNav === 'function') {
+        closeMobileNav();
+      }
+    }
+  });
+
+  // Global event handler for all Join Our Course links
+  document.addEventListener('click', (e) => {
+    const courseBtn = e.target.closest('#header-join-course-btn, #link-course-nav, #link-course-mobile, #hero-cta-join-course, a[href*="tagmango.app"]');
+    if (courseBtn) {
+      e.preventDefault();
+      const targetUrl = courseBtn.getAttribute('href') || 'https://tagmango.app/3c40c4e946';
+      window.open(targetUrl, '_blank', 'noopener,noreferrer');
+      if (typeof closeMobileNav === 'function') {
+        closeMobileNav();
+      }
+    }
   });
 
   // Close modal
