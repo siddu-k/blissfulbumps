@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const infoCards = document.querySelectorAll('.guide-info-card');
 
   hotspots.forEach(spot => {
-    spot.addEventListener('click', () => {
+    const activateHotspot = () => {
       const benefitKey = spot.getAttribute('data-benefit');
       
       // Update Hotspot Trigger States
@@ -235,6 +235,14 @@ document.addEventListener('DOMContentLoaded', () => {
           card.classList.remove('active');
         }
       });
+    };
+
+    spot.addEventListener('click', activateHotspot);
+    spot.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateHotspot();
+      }
     });
   });
 
